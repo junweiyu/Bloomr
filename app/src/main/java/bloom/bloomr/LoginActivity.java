@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,6 +69,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        final Typeface myFont = Typeface.createFromAsset(getAssets(), "Cutie Patootie.ttf");
+        final Typeface myFont2 = Typeface.createFromAsset(getAssets(), "AlexandriaFLF-Bold.ttf");
+        TextView myLogin = (TextView) findViewById(R.id.login_name);
+        TextView mySlogan = (TextView) findViewById(R.id.login_slogan);
+        myLogin.setTypeface(myFont);
+        mySlogan.setTypeface(myFont2);
+
+
+
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -84,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setTypeface(myFont2);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +107,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        TextView signUpText = (TextView) findViewById(R.id.sign_up);
+        signUpText.setTypeface(myFont2);
+        signUpText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUp();
+            }
+        });
+
+        TextView skipText = (TextView) findViewById(R.id.skip);
+        skipText.setTypeface(myFont2);
+        skipText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Home();
+            }
+        });
     }
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -140,6 +173,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     /**
+     * Go to Sign Up screen.
+     */
+    private void signUp() {
+        startActivity(new Intent(LoginActivity.this, SignUp.class));
+    }
+
+
+    /**
+     * Go to Home screen.
+     */
+    private void Home() {
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+    }
+
+    /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
@@ -156,6 +204,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+
+        HomeActivity.currentUser = new User(1, email, password, "Junwei Yu");
 
         boolean cancel = false;
         View focusView = null;
