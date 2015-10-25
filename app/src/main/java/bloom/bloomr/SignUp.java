@@ -71,14 +71,14 @@ public class SignUp extends AppCompatActivity implements LoaderCallbacks<Cursor>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-
+//
         final Typeface myFont = Typeface.createFromAsset(getAssets(), "Cutie Patootie.ttf");
         final Typeface myFont2 = Typeface.createFromAsset(getAssets(), "AlexandriaFLF-Bold.ttf");
-        TextView myLogin = (TextView) findViewById(R.id.login_name);
-        TextView mySlogan = (TextView) findViewById(R.id.login_slogan);
-        myLogin.setTypeface(myFont);
-        mySlogan.setTypeface(myFont2);
-
+//        TextView myLogin = (TextView) findViewById(R.id.login_name);
+//        TextView mySlogan = (TextView) findViewById(R.id.login_slogan);
+//        myLogin.setTypeface(myFont);
+//        mySlogan.setTypeface(myFont2);
+//
 
 
 
@@ -107,13 +107,17 @@ public class SignUp extends AppCompatActivity implements LoaderCallbacks<Cursor>
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                Home();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+    }
+
+    private void Home() {
+        startActivity(new Intent(SignUp.this, HomeActivity.class));
     }
 
 

@@ -143,7 +143,8 @@ public abstract class FormActivity extends Activity
             public void onClick(View view) {
                 //TODO: implement checking
                 save();
-                Intent i = new Intent(FormActivity.this, HomeActivity.class);
+//                Intent i = new Intent(FormActivity.this, HomeActivity.class);
+				Intent i = new Intent(FormActivity.this, MapActivity.class);
                 startActivity(i);
             }
         });

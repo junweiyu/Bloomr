@@ -19,6 +19,7 @@ public class Event
     private String description;
     private String website;
     private String dates;
+    private String place;
 
     /**
      * Constructor
@@ -71,6 +72,18 @@ public class Event
 
     public Location getLocation() {
         return this.location;
+    }
+
+    public String getPlace() {
+        return this.place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public void setLocation(Location loc) {
+        this.location = loc;
     }
 
 }

@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     public static User currentUser;
     public static ArrayList<Event> events = new ArrayList<Event>();
     public static Event eventForPage;
+    public Integer[] imageIds = {R.drawable.internship, R.drawable.beach, R.drawable.mentorship};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,23 +52,16 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ImageButton postButton = (ImageButton)toolbar.findViewById(R.id.post_button);
+        FloatingActionButton postButton = (FloatingActionButton) findViewById(R.id.post_button);
 
         postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, PostActivity.class);
                 startActivity(i);
             }
         });
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         Context context = getBaseContext();
         View coordinatorLayout = findViewById(R.id.coordinator);
         View scrollLayout = coordinatorLayout.findViewById(R.id.scroll);
@@ -174,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
                                 });
 
                                 ImageView eventImage = new ImageView(HomeActivity.this);
-                                eventImage.setImageResource(R.drawable.volunteer);
+                                eventImage.setImageResource(imageIds[i%3]);
                                 eventImages.add(eventImage);
                                 eventNames.add(eventBtn);
 
