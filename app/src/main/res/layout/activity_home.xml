@@ -18,7 +18,7 @@
 
             <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
                 android:layout_height="?attr/actionBarSize" android:layout_width="match_parent"
-                app:layout_collapseMode="pin" android:background="@drawable/background" app:popupTheme="@style/AppTheme.PopupOverlay">
+                app:layout_collapseMode="pin" app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <!--<ImageButton-->
                     <!--android:id="@+id/post_button"-->
@@ -43,7 +43,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:src="@android:drawable/ic_input_add" />
 
     <android.support.v4.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
