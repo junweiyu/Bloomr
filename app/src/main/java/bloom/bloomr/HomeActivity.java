@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,6 +41,9 @@ public class HomeActivity extends AppCompatActivity {
     public int current_id = 0;
     public ArrayList<ImageView> eventImages = new ArrayList<ImageView>();
     public ArrayList<Button> eventNames = new ArrayList<Button>();
+    public static User currentUser;
+    public static ArrayList<Event> events = new ArrayList<Event>();
+    public static Event eventForPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,11 +159,16 @@ public class HomeActivity extends AppCompatActivity {
                                 dates = dates.replaceAll("/", "");
 
                                 valueTV.setText("Event " + title + '\n' + "Organizer " + owner + '\n' + "When: " + title + '\n' + "Website " + website);
+                                final String values = title + "," + owner + "," + organization + "," + dates + "," + privacy + "," + website + "," + capacity + "," + description;
                                 Button eventBtn = new Button(HomeActivity.this);
                                 eventBtn.setText(title + '\n' + dates);
+                                final Event e = new Event(HomeActivity.currentUser, title, privacy, description, website, dates, capacity);
                                 eventBtn.setOnClickListener(new View.OnClickListener() {
                                     public void onClick(View v) {
                                         Intent i = new Intent(HomeActivity.this, EventActivity.class);
+                                        i.putExtra("Values", values);
+                                        HomeActivity.eventForPage = e;
+                                        Log.d("WORKING ", e.getTitle());
                                         startActivity(i);
                                     }
                                 });

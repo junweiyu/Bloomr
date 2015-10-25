@@ -204,11 +204,27 @@ public abstract class FormActivity extends Activity
 		boolean success = true;
 		
 		try{
+			String[] stuff =new String[9];
 			for( int i = 0; i < _widgets.size(); i++ ) 
 			{
 	        	widget = _widgets.get(i);
-	        	data.put( widget.getPropertyName(), widget.getValue() );
+	        	data.put(widget.getPropertyName(), widget.getValue());
+				Log.d("NAME ", widget.getPropertyName());
+				stuff[i] = widget.getValue();
 			}
+			String title = stuff[0];
+			String name = stuff[1];
+			String organization = stuff[2];
+			String dates = stuff[3];
+			String website = stuff[4];
+			String description = stuff[5];
+			String capacity = stuff[6];
+			String custom = stuff[7];
+			int privacy = Integer.parseInt(stuff[8]);
+			Event e = new Event(HomeActivity.currentUser, title, privacy, description, website, dates, capacity);
+			HomeActivity.currentUser.addEvent(e);
+
+
 		} catch( JSONException e )
 		{
 			success = false;

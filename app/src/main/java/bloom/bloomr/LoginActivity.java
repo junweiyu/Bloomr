@@ -205,6 +205,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
+        HomeActivity.currentUser = new User(1, email, password, "Junwei Yu");
+
         boolean cancel = false;
         View focusView = null;
 

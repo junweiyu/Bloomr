@@ -80,23 +80,6 @@ public class PostActivity extends FormActivity
         return event;
     }
 
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-        }
-
-        return result.toString();
-    }
-
     public void store(JSONObject event){
         final JSONObject events = event;
         new Thread(new Runnable() {
@@ -128,6 +111,8 @@ public class PostActivity extends FormActivity
                     BufferedWriter writer = new BufferedWriter(
                             new OutputStreamWriter(os, "UTF-8"));
 
+//                    Event e = Event(HomeActivity.currentUser, titl, int priv, String descrip, String site, int cap)
+//                    HomeActivity.currentUser.addEvent(e);
                     writer.write(events.toString());
 
                     writer.flush();
