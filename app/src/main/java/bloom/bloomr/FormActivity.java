@@ -15,12 +15,15 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 /**
  * FormActivity allows you to create dynamic form layouts based upon a json schema file. 
@@ -134,18 +137,22 @@ public abstract class FormActivity extends Activity
 
 		Button saveButton = new Button(this);
 		saveButton.setText("Submit");
+        Typeface font = Typeface.createFromAsset(getAssets(), "AlexandriaFLF-Bold.ttf");
+        saveButton.setTypeface(font);
 		saveButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				//TODO: implement checking
-				save();
-				Intent i = new Intent(FormActivity.this, HomeActivity.class);
-				startActivity(i);
-			}
-		});
+            public void onClick(View view) {
+                //TODO: implement checking
+                save();
+                Intent i = new Intent(FormActivity.this, HomeActivity.class);
+                startActivity(i);
+            }
+        });
 		_container.addView(saveButton);
-        _container.addView( _viewport );
-        
-		setContentView( _container );
+        _container.addView(_viewport);
+
+
+        _container.setBackgroundResource(R.drawable.background);
+		setContentView(_container);
 	}
 	
 	// -----------------------------------------------

@@ -119,6 +119,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         TextView skipText = (TextView) findViewById(R.id.skip);
         skipText.setTypeface(myFont2);
+        skipText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Home();
+            }
+        });
     }
 
 
@@ -171,6 +177,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void signUp() {
         startActivity(new Intent(LoginActivity.this, SignUp.class));
+    }
+
+
+    /**
+     * Go to Home screen.
+     */
+    private void Home() {
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 
     /**
