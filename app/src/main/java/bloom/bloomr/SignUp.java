@@ -38,9 +38,9 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
- * A login screen that offers login via email/password.
+ * A Sign Up screen that offers Signup via name/email/username/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class SignUp extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -62,13 +62,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private TextView mName;
+    private TextView mUsername;
     private View mProgressView;
     private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.sign_up);
 
         final Typeface myFont = Typeface.createFromAsset(getAssets(), "Cutie Patootie.ttf");
         final Typeface myFont2 = Typeface.createFromAsset(getAssets(), "AlexandriaFLF-Bold.ttf");
@@ -80,7 +82,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
+
         // Set up the login form.
+
+        mName = (TextView) findViewById(R.id.name);
+        mUsername = (TextView) findViewById(R.id.username);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -108,17 +114,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        TextView signUpText = (TextView) findViewById(R.id.sign_up);
-        signUpText.setTypeface(myFont2);
-        signUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUp();
-            }
-        });
-
-        TextView skipText = (TextView) findViewById(R.id.skip);
-        skipText.setTypeface(myFont2);
     }
 
 
@@ -167,13 +162,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     /**
-     * Go to Sign Up screen.
-     */
-    private void signUp() {
-        startActivity(new Intent(LoginActivity.this, SignUp.class));
-    }
-
-    /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
@@ -190,9 +178,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String name = mEmailView.getText().toString();
+        String username = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
+
+        // Check for a valid name, if the user entered one.
+        if (!TextUtils.isEmpty(name) && !isNameValid(name)) {
+            mName.setError(getString(R.string.error_invalid_name));
+            focusView = mName;
+            cancel = true;
+        }
+
+        // Check for a valid username, if the user entered one.
+        if (!TextUtils.isEmpty(username) && !isPasswordValid(username)) {
+            mName.setError(getString(R.string.error_invalid_username));
+            focusView = mUsername;
+            cancel = true;
+        }
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -232,7 +236,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 6;
+    }
+
+    private boolean isNameValid(String name) {
+        //TODO: Replace this with your own logic
+        return name.length() > 0;
     }
 
     /**
@@ -319,7 +328,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(SignUp.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -368,7 +377,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent i = new Intent(SignUp.this, HomeActivity.class);
                 startActivity(i);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
